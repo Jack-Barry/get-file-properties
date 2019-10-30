@@ -1,0 +1,55 @@
+{
+  "name": "get-file-properties",
+  "version": "1.0.0",
+  "description": "Gets file metadata",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "pretty": "git add . && pretty-quick --staged --pattern \"src/**/*.*(ts)\" --pattern \"config/**/*.*\" --pattern \"**/(README.md|tsconfig.json|package.json)\" --bail",
+    "test": "ts-mocha --config config/.mocharc.js src/**/*.spec.ts",
+    "dev:build": "npm run build -- --watch --preserveWatchOutput",
+    "dev:test": "npm run test -- --watch"
+  },
+  "keywords": [
+    "wmic",
+    "file properties",
+    "file metadata"
+  ],
+  "author": "Jack Barry",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/chai": "^4.2.4",
+    "@types/chai-as-promised": "^7.1.2",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.7.8",
+    "@types/sinon": "^7.5.0",
+    "@types/sinon-chai": "^3.2.3",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "chalk": "^2.4.2",
+    "concurrently": "^5.0.0",
+    "git-state": "^4.1.0",
+    "husky": "^3.0.9",
+    "mocha": "^6.2.2",
+    "prettier": "^1.18.2",
+    "pretty-quick": "^2.0.0",
+    "shx": "^0.3.2",
+    "sinon": "^7.5.0",
+    "sinon-chai": "^3.3.0",
+    "ts-mocha": "^6.0.0",
+    "typescript": "^3.6.3"
+  },
+  "prettier": {
+    "endOfLine": "lf",
+    "singleQuote": true,
+    "semi": false
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "concurrently \"shx rm -rf dist && npm run pretty && npm run build && git add .\" \"npm run test\"",
+      "pre-push": "node config/husky-push.js"
+    }
+  }
+}
