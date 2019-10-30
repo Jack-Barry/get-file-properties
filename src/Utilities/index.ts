@@ -1,6 +1,6 @@
 import { exec } from 'child_process'
 
-type WmicDataObjectKey =
+export type WmicDataObjectKey =
   | 'AccessMask'
   | 'Archive'
   | 'Caption'

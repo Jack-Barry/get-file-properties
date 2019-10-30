@@ -14,8 +14,8 @@ functionality for MacOS and Linux.
 ```ts
 import { getFileProperties, WmicDataObject } from 'get-file-properties'
 
-// Use single backslashes in your file path
-const filepath: string = 'C:path\to-my\file.txt'
+// Ensure you are using double backslashes in your file path
+const filepath: string = 'C:\\path\\to-my\\file.txt'
 let metadata: WmicDataObject
 
 // Default behavior is to get all properties
