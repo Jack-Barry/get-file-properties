@@ -1,5 +1,42 @@
 import { exec } from 'child_process'
 
+type WmicDataObjectKey =
+  | 'AccessMask'
+  | 'Archive'
+  | 'Caption'
+  | 'Compressed'
+  | 'CompressionMethod'
+  | 'CreationClassName'
+  | 'CreationDate'
+  | 'CSCreationClassName'
+  | 'CSName'
+  | 'Description'
+  | 'Drive'
+  | 'EightDotThreeFileName'
+  | 'Encrypted'
+  | 'EncryptionMethod'
+  | 'Extension'
+  | 'FileName'
+  | 'FileSize'
+  | 'FileType'
+  | 'FSCreationClassName'
+  | 'FSName'
+  | 'Hidden'
+  | 'InstallDate'
+  | 'InUseCount'
+  | 'LastAccessed'
+  | 'LastModified'
+  | 'Manufacturer'
+  | 'Name'
+  | 'Path'
+  | 'Readable'
+  | 'Status'
+  | 'System'
+  | 'Version'
+  | 'Writeable'
+
+export type WmicDataObject = { [key in WmicDataObjectKey]?: string }
+
 /**
  * Excecutes a command and resolves with the response of the command
  *
@@ -15,4 +52,27 @@ export const promiseExec = (command: string): Promise<string> => {
       res(stdout)
     })
   })
+}
+
+/**
+ * Parses metadata from wmic command into an object of key value pairs
+ *
+ * @param wmicData A string output by wmic
+ */
+export const parseFileProperties = (wmicData: string): WmicDataObject => {
+  let output: WmicDataObject = {}
+  let i = 0
+  const stringArr: string[] = wmicData.split('\r\r\n').filter(s => s.length > 0)
+  const splitTitles = stringArr[0].match(/\w+\s+/g) || []
+  const titles = splitTitles.map(t => t.trim())
+  const titleLengths: number[] = splitTitles.map(t => t.length)
+  const values = titleLengths.map(titleLength => {
+    const currentI = i
+    i = i + titleLength
+    return stringArr[1].slice(currentI, currentI + titleLength).trim()
+  })
+  titles.forEach((t, i) => {
+    output[t as WmicDataObjectKey] = values[i]
+  })
+  return output
 }
