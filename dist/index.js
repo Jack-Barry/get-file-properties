@@ -41,3 +41,17 @@ exports.parseFileProperties = function (wmicData) {
     });
     return output;
 };
+/**
+ * Builds a string to run the wmic command
+ *
+ * @param filepath The path of the file to check properties on
+ * @param attributes An optional list of keys to limit the output to (default
+ *  behavior is to return all retrieved data)
+ */
+exports.buildWmicCommand = function (filepath, attributes) {
+    if (attributes === void 0) { attributes = []; }
+    var commandString = "wmic datafile where name=\"" + filepath + "\"";
+    if (attributes.length > 0)
+        commandString += " get " + attributes.join(',');
+    return commandString;
+};

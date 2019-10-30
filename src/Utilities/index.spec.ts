@@ -3,7 +3,12 @@ import { SinonSpy, createSandbox, SinonSandbox } from 'sinon'
 import chaiAsPromised from 'chai-as-promised'
 import sinonChai from 'sinon-chai'
 import childProcess from 'child_process'
-import { promiseExec, parseFileProperties, WmicDataObject } from '.'
+import {
+  promiseExec,
+  parseFileProperties,
+  WmicDataObject,
+  buildWmicCommand
+} from '.'
 chai.use(chaiAsPromised)
 chai.use(sinonChai)
 
@@ -82,6 +87,22 @@ describe('Utilities', () => {
       expect(output.System).to.eql('FALSE')
       expect(output.Version).to.eql('')
       expect(output.Writeable).to.eql('TRUE')
+    })
+  })
+
+  describe('buildWmicCommand()', () => {
+    it('generates the wmic command as intended', () => {
+      expect(buildWmicCommand('C:\\Users\\JackBarry\\.gitconfig')).to.eql(
+        'wmic datafile where name="C:\\Users\\JackBarry\\.gitconfig"'
+      )
+      expect(
+        buildWmicCommand('C:\\Users\\JackBarry\\.gitconfig', [
+          'AccessMask',
+          'Description'
+        ])
+      ).to.eql(
+        'wmic datafile where name="C:\\Users\\JackBarry\\.gitconfig" get AccessMask,Description'
+      )
     })
   })
 })
