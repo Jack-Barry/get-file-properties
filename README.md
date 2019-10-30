@@ -11,6 +11,10 @@ functionality for MacOS and Linux.
 
 ## Usage
 
+```none
+npm i get-file-properties
+```
+
 ```ts
 import { getFileProperties, WmicDataObject } from 'get-file-properties'
 

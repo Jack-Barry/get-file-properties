@@ -17,6 +17,10 @@
     "file metadata"
   ],
   "author": "Jack Barry",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jack-Barry/get-file-properties"
+  },
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
