@@ -14,15 +14,12 @@ functionality for MacOS and Linux.
 ```ts
 import { getFileProperties, WmicDataObject } from 'get-file-properties'
 
-// Ensure you are using double backslashes in your file path
-const filepath: string = 'C:\\path\\to-my\\file.txt'
-let metadata: WmicDataObject
+async function demo() {
+  // Ensure you are using double backslashes in your file path
+  const filepath: string = 'C:\\path\\to-my\\file.txt'
+  let metadata: WmicDataObject
 
-// Default behavior is to get all properties
-metadata = getFileProperties(filepath)
-console.log(metadata.FileSize)
-
-// Provide an array of specific properties to limit the response object
-metadata = getFileProperties(filepath, ['Readable', 'Writeable'])
-console.log({ readable: metadata.Readable, writeable: metadata.Writeable })
+  metadata = await getFileProperties(filepath)
+  console.log(metadata.FileSize)
+}
 ```

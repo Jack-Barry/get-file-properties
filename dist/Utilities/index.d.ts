@@ -20,7 +20,5 @@ export declare const parseFileProperties: (wmicData: string) => WmicDataObject;
  * Builds a string to run the wmic command
  *
  * @param filepath The path of the file to check properties on
- * @param attributes An optional list of keys to limit the output to (default
- *  behavior is to return all retrieved data)
  */
-export declare const buildWmicCommand: (filepath: string, attributes?: WmicDataObjectKey[]) => string;
+export declare const buildWmicCommand: (filepath: string) => string;

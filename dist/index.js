@@ -41,21 +41,16 @@ var Utilities_1 = require("./Utilities");
  * Retrieves metadata for a file as an object of key value pairs.
  *
  * @param filepath The absolute path of a file to read properties on
- * @param attributes An optional array of file attributes to limit the response
- *   value to. Defaults to returning all file attributes retrieved.
  */
-exports.getFileProperties = function (filepath, attributes) {
-    if (attributes === void 0) { attributes = []; }
-    return __awaiter(void 0, void 0, void 0, function () {
-        var cmdResponse;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, Utilities_1.promiseExec(Utilities_1.buildWmicCommand(filepath.replace(/\\+/g, '\\\\'), attributes))];
-                case 1:
-                    cmdResponse = _a.sent();
-                    return [2 /*return*/, Utilities_1.parseFileProperties(cmdResponse)];
-            }
-        });
+exports.getFileProperties = function (filepath) { return __awaiter(void 0, void 0, void 0, function () {
+    var cmdResponse;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, Utilities_1.promiseExec(Utilities_1.buildWmicCommand(filepath.replace(/\\+/g, '\\\\')))];
+            case 1:
+                cmdResponse = _a.sent();
+                return [2 /*return*/, Utilities_1.parseFileProperties(cmdResponse)];
+        }
     });
-};
+}); };
 exports.default = { getFileProperties: exports.getFileProperties };

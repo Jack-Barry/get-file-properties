@@ -95,14 +95,6 @@ describe('Utilities', () => {
       expect(buildWmicCommand('C:\\Users\\JackBarry\\.gitconfig')).to.eql(
         'wmic datafile where name="C:\\Users\\JackBarry\\.gitconfig"'
       )
-      expect(
-        buildWmicCommand('C:\\Users\\JackBarry\\.gitconfig', [
-          'AccessMask',
-          'Description'
-        ])
-      ).to.eql(
-        'wmic datafile where name="C:\\Users\\JackBarry\\.gitconfig" get AccessMask,Description'
-      )
     })
   })
 })
